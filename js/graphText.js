@@ -4,6 +4,6 @@ function GraphText() {
     this.fillText = function (x, y, val, color) {
          ctx.fillStyle = color;
         ctx.font = "11px Arial";
-        ctx.fillText(val, x, y); //writing the value in X-axis
+        ctx.fillText(val, x-5, y); //writing the value in X-axis
     }
 };

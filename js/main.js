@@ -2,23 +2,41 @@ var input,
     submit,
     canvas,
     ctx,
-    myTree,
     canvasHeight,
     canvasWidth,
     rootX,
-    rootY;
+    rootY,
+    createTreeObj,
+    arrOfLine = [],
+    myCoOrdinate,
+    myTree,
+    myCircle,
+    renderMyTree;
+const y = 50;//difference of every level of tree    
 
 function init() {
     input = $('input[type=number]');
     submit = $('button');
     canvas = document.getElementById("myCanvas");
     ctx = canvas.getContext("2d");
-    myTree = new BinerySearchTree();
+    myTree = new bstTree();
+    createTreeObj = new CreateBinarySearchTreeObject();
+    myCoOrdinate = new CalculateCoOrdinate();
+    myCircle = new Circle();
+    renderMyTree = new Render();
 }
 
 function bindEvent() {
     $(document).on('click', 'button', function () {
-        parseInput(input);
+        var newVal = parseInput(input); //getting the input value     
+        if (newVal) {
+             myCircle.clearCanvas();//clearing the previous canvas value
+            var newTree = createTreeObj.createTree(newVal);//create tree object adding new node
+            renderMyTree.renderLine(arrOfLine);//create line
+            renderMyTree.renderTree(newTree);//create tree
+        }else{
+            alert('incorrect entry'); 
+        }
     });
 
     $(window).on('resize', function () {
@@ -35,7 +53,7 @@ function CanvasResponsive(canvasId) {
     var halfOfWidth = canvasWidth / 2;
     canvasId.style.marginLeft = -halfOfWidth + 'px';
     rootX = halfOfWidth;
-    rootY = (canvasHeight*5)/100;
+    rootY = (canvasHeight * 5) / 100;
 }
 
 $(document).ready(function () {

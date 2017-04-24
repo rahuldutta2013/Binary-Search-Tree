@@ -6,20 +6,27 @@ function CalculateCoOrdinate() {
         obj.y = rootY;
         return obj;
     }
-    this.calLeft = function (parentX, parentY) {
+
+    this.calLeft = function (parentX, parentY,level,canvaswidth) { 
         var obj = {};
-        parentX -= 30;
-        parentY += 30;
-        obj.x = parentX;
-        obj.y = parentY;
+         var x; 
+        var divide = Math.pow(2,level) ;
+        canvaswidth = canvaswidth - (Math.pow(2,level)*10);
+        var xDiv = canvaswidth / divide;
+        x = parentX - (xDiv/2);
+        obj.x = x;
+        obj.y =parentY + y;
         return obj;
     }
-    this.calRight = function (parentX, parentY) {
+    this.calRight = function (parentX, parentY,level,canvaswidth) {
         var obj = {};
-        parentX += 30;
-        parentY += 30;
-        obj.x = parentX;
-        obj.y = parentY;
+        var x;
+        var divide = Math.pow(2,level) ;
+         canvaswidth = canvaswidth - (Math.pow(2,level)*10);
+        var  xDiv= canvaswidth / divide;
+        x = parentX + (xDiv/2);
+        obj.x = x;
+        obj.y =parentY + y;
         return obj;
     }
 
