@@ -1,5 +1,6 @@
-var input,
-    submit,
+var searchNode,
+    deleteNode,
+    enterArrOfNode,
     canvas,
     ctx,
     canvasHeight,
@@ -9,33 +10,119 @@ var input,
     createTreeObj,
     arrOfLine = [],
     myCoOrdinate,
-    myTree,
+    // myTree,
+    newTree,
     myCircle,
-    renderMyTree;
+    renderMyTree,
+    // existTree,
+    myText;
 const y = 50;//difference of every level of tree    
 
 function init() {
-    input = $('input[type=number]');
-    submit = $('button');
+    searchNode = $('#searchNode');
+    deleteNode = $('#deleteNode');
+    enterArrOfNode = $('#arrayNode');
     canvas = document.getElementById("myCanvas");
     ctx = canvas.getContext("2d");
-    myTree = new bstTree();
-    createTreeObj = new CreateBinarySearchTreeObject();
+    // myTree = new bstTree();
+    createTreeObj = new bstTree();
     myCoOrdinate = new CalculateCoOrdinate();
     myCircle = new Circle();
     renderMyTree = new Render();
+    // existTree = new bstTree();
+    myText = new GraphText();
 }
 
 function bindEvent() {
-    $(document).on('click', 'button', function () {
-        var newVal = parseInput(input); //getting the input value     
-        if (newVal) {
-             myCircle.clearCanvas();//clearing the previous canvas value
-            var newTree = createTreeObj.createTree(newVal);//create tree object adding new node
+    enterArrOfNode.keypress(function (e) {
+        var key = e.which;
+        if (key == 13)  // the enter key code
+        {
+            var inputArr = new ParseInputFromArray();
+            var nodes = inputArr.parseFromArr(enterArrOfNode);
+            // var existTree = new bstTree();
+            // console.log(nodes)
+            if (nodes) {
+                var len = nodes.length;
+                for (var i = 0; i < len; i++) {
+                     var mySearch = new Search();
+                    var searchedNode = mySearch.dfs(newTree, nodes[i]);
+                    if(searchedNode){
+                        alert('same entry');
+                        return;
+                        
+                    }else{
+                        newTree = createTreeObj.createTree(nodes[i]);//create tree object adding new node
+                    }
+                    
+                }
+
+                myCircle.clearCanvas();//clearing the previous canvas value
+                renderMyTree.renderLine(arrOfLine);//create line
+                renderMyTree.renderTree(newTree);//create tree
+                // console.log(newTree);
+
+            }
+        }
+    });
+
+
+    searchNode.keypress(function (e) {
+        var key = e.which;
+        if (key == 13)  // the enter key code
+        {
+            var colorCircle = 'green';
+            var colorText = 'white';
+            var searchedVal = searchNode.val();
+            searchNode.val('');
+            var mySearch = new Search();
+            var searchedNode = mySearch.dfs(newTree, searchedVal);
+            myCircle.clearCanvas();//clearing the previous canvas value
             renderMyTree.renderLine(arrOfLine);//create line
             renderMyTree.renderTree(newTree);//create tree
-        }else{
-            alert('incorrect entry'); 
+            if (searchedNode) {
+                myCircle.drawCircle(searchedNode.x, searchedNode.y, colorCircle);//draw circle of different color
+                myText.fillText(searchedNode.x - 2, searchedNode.y + 2, searchedNode.value, colorText);//write text on searched node
+            } else {
+                alert('not found');
+            }
+        }
+    });
+
+    deleteNode.keypress(function (e) {
+        // arrOfLine = [];
+        var key = e.which;
+        if (key == 13)  // the enter key code
+        {
+            var val = deleteNode.val();
+            deleteNode.val('');
+            var mySearch = new Search();
+            var searchedNode = mySearch.dfs(newTree, val);
+            if(searchedNode){
+                 var d = new DeleteNode(newTree, val);
+           
+            var arrOfNodes = printLevelOrder(d);
+            // console.log(arrOfNodes);
+
+            arrOfLine = [];
+            console.log(newTree);
+            if (arrOfNodes) {
+                var len = arrOfNodes.length;
+                newTree.value = '';
+                newTree.coOrdinate = '';
+                newTree.label = '';
+                newTree.left = '';
+                newTree.right = '';            
+                for (var i = 0; i < len; i++) {
+                    newTree = createTreeObj.createTree(arrOfNodes[i]);//create tree object adding new node
+                }
+            }
+            myCircle.clearCanvas();//clearing the previous canvas value
+            renderMyTree.renderLine(arrOfLine);//create line
+            renderMyTree.renderTree(newTree);//create tree   
+            }else{
+                alert('node doesnot exist' );
+            }  
         }
     });
 

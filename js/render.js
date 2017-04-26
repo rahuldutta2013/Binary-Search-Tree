@@ -7,7 +7,7 @@ function Render() {
             var myLine = new Line();
             var len = lineArr.length;
             for (var i = 0; i < len; i++) {
-                myLine.drawLine(lineArr[i].lineStart.x, lineArr[i].lineStart.y, lineArr[i].lineEnd.x, lineArr[i].lineEnd.y);
+                myLine.drawLine(lineArr[i].lineStart.x, lineArr[i].lineStart.y, lineArr[i].lineEnd.x, lineArr[i].lineEnd.y,colorLine);
             }
         }
     }
@@ -17,9 +17,10 @@ function Render() {
             this.renderTree(treeObj.right);
             var myCircle = new Circle();
             myCircle.drawCircle(treeObj.coOrdinate.x, treeObj.coOrdinate.y , colorCircle);
-            var myText = new GraphText();
+            
             myText.fillText(treeObj.coOrdinate.x - 2, treeObj.coOrdinate.y + 2, treeObj.value, colorText);
         }
     }
+   
     // console.log(treeObj);
 }

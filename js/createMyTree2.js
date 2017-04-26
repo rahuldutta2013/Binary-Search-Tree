@@ -1,11 +1,9 @@
 function bstTree() {
-    this.value = '';
-    this.left = '';
-    this.right = '';
-}
-function CreateBinarySearchTreeObject() {
+    var val;
+    var myTree = new Node(val);
     this.createTree = function (val) {
         var newNode = new Node(parseInt(val));
+
         if (myTree.value === '') {
             myTree.value = newNode.value;
             myTree.label = 1;
@@ -20,12 +18,6 @@ function CreateBinarySearchTreeObject() {
     }
 
     var travarseTree = function (newObj, obj) {
-
-        if(newObj.value === obj.value){
-            alert('same entry');
-            return;
-        }
-
         if (newObj.value > obj.value) {
             if (obj.right !== '') {
                 obj = obj.right;

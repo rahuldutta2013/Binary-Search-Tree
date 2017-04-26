@@ -4,7 +4,11 @@ function Circle() {
         var r = 13;
         ctx.beginPath();
         ctx.arc(x, y, r, 0, 2 * Math.PI);
-        ctx.fillStyle = '#0066cc';
+        if(!color){
+            ctx.fillStyle = '#0066cc';
+        }else{
+            ctx.fillStyle = color;
+        }   
         ctx.fill();
         ctx.lineWidth = 2;
         ctx.strokeStyle = '#004080';
