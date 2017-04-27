@@ -1,3 +1,4 @@
+//structure of a node
 function Node(val){
     if(val){
          this.value = val;

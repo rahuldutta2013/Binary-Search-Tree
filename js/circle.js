@@ -1,14 +1,14 @@
-//function to draw line
+//function to draw circle
 function Circle() {
     this.drawCircle = function (x, y, color) {
-        var r = 13;
+        var r = 15;//circle radius
         ctx.beginPath();
         ctx.arc(x, y, r, 0, 2 * Math.PI);
-        if(!color){
+        if (!color) {
             ctx.fillStyle = '#0066cc';
-        }else{
+        } else {
             ctx.fillStyle = color;
-        }   
+        }
         ctx.fill();
         ctx.lineWidth = 2;
         ctx.strokeStyle = '#004080';

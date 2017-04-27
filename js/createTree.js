@@ -1,9 +1,10 @@
 function bstTree() {
     var val;
-    var myTree = new Node(val);
-    this.createTree = function (val) {
-        var newNode = new Node(parseInt(val));
+    var myTree = new Node(val);//creating a blank node
 
+    //function to push node into the tree
+    this.createTree = function (val) {
+        var newNode = new Node(parseInt(val));//creating a new node with entered value
         if (myTree.value === '') {
             myTree.value = newNode.value;
             myTree.label = 1;
@@ -12,11 +13,12 @@ function bstTree() {
             return myTree;
         }
         if (myTree.value !== '') {
-            var arrOfLine = new travarseTree(newNode, myTree);
+            var arrOfLine = new travarseTree(newNode, myTree);//getting an array of line
         }
-        return myTree;
+        return myTree;//returning a tree with nodes and co-ordinates
     }
 
+    //a private function to travarse the tree and pushing respective co-ordinates into the tree 
     var travarseTree = function (newObj, obj) {
         if (newObj.value > obj.value) {
             if (obj.right !== '') {
@@ -44,7 +46,7 @@ function bstTree() {
                 var lineObj = {};
                 lineObj.lineStart = obj.coOrdinate;
                 lineObj.lineEnd = obj.left.coOrdinate;
-                arrOfLine.push(lineObj);
+                arrOfLine.push(lineObj);//populating the line array
             }
         }
     }

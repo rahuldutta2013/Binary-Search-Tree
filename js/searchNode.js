@@ -1,3 +1,4 @@
+//function to search node and returns the co-ordinate of respective node
 function Search() {
     var obj = {},
         foundCoOrdinate;
@@ -23,9 +24,8 @@ function Search() {
                 }
 
             }
-        }else{
+        } else {
             return;
         }
-
     }
 }
